@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# setup test cases
+declare -a TEST_CASES=(
+  "yarn commitlint --edit $1"
+)
+
+# bash execute the test
+TEST_RESULT=0
+for TEST_CASE in "${TEST_CASES[@]}"
+do
+  eval $TEST_CASE
+  TEST_RESULT=$(($?))
+  if [ ${TEST_RESULT} -ne 0 ];then
+    break
+  fi
+done
+
+# if test fail return fail
+if [ ${TEST_RESULT} -ne 0 ];then
+  exit 1
+fi
